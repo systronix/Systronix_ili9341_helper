@@ -13,7 +13,7 @@
 
 //---------------------------< I N C L U D E S >--------------------------------------------------------------
 
-#include <SALT_debug_display.h>
+#include <Systronix_ili9341_helper.h>
 
 ILI9341_t3 tft = ILI9341_t3 (DISP_CS_PIN, DH_CL_PIN, PERIPH_RST, MOSI_PIN, SCK_PIN, MISO_PIN);
 
