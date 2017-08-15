@@ -24,7 +24,7 @@ ILI9341_t3 tft = ILI9341_t3 (DISP_CS_PIN, DH_CL_PIN, PERIPH_RST, MOSI_PIN, SCK_P
 // MAX_LINES.  indexes are 0 based so must never be set to a value equal to or greater than MAX_LINES.
 //
 
-uint8_t SALT_debug_display::next_index_get (uint8_t old_index)
+uint8_t Systronix_ili9341_helper::next_index_get (uint8_t old_index)
 	{
 	if (MAX_LINES <= 1 + old_index)				// an increment makes this index >= MAX_LINE
 		return 0;								// so make it zero
@@ -41,7 +41,7 @@ uint8_t SALT_debug_display::next_index_get (uint8_t old_index)
 // leaves screen.bot_index pointing at the next available location
 //
 
-uint8_t SALT_debug_display::scroll_display (uint8_t count)
+uint8_t Systronix_ili9341_helper::scroll_display (uint8_t count)
 	{
 	uint8_t line;
 	uint8_t	index;
@@ -91,7 +91,7 @@ uint8_t SALT_debug_display::scroll_display (uint8_t count)
 // location in the struct
 //
 
-void SALT_debug_display::display_line_write (const char* text, uint16_t color)
+void Systronix_ili9341_helper::display_line_write (const char* text, uint16_t color)
 	{
 	if (MAX_LINES <= screen.line_count)										// if the array is full
 		{
@@ -121,7 +121,7 @@ void SALT_debug_display::display_line_write (const char* text, uint16_t color)
 // unchanged (pointing to next location in the struct)
 //
 
-void SALT_debug_display::display_line_rewrite (const char* text, uint16_t color)
+void Systronix_ili9341_helper::display_line_rewrite (const char* text, uint16_t color)
 	{
 	tft.setCursor(screen.screen_line[screen.last_index].x, screen.screen_line[screen.last_index].y);	// position at start of line
 	tft.setTextColor (ILI9341_BLACK);										// same as background
@@ -141,7 +141,7 @@ void SALT_debug_display::display_line_rewrite (const char* text, uint16_t color)
 // blank the screen and reset the screen struct
 //
 
-void SALT_debug_display::screen_clear (void)
+void Systronix_ili9341_helper::screen_clear (void)
 	{
 	screen.top_index = 0;
 	screen.bot_index = 0;

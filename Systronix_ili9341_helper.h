@@ -14,10 +14,10 @@
 #define	LINE_00_Y		5		// top line of display at cap height is 5px below top edge of display
 #define	LINE_HEIGHT		18		// give leading of 2-3px (2 for pipe character, 3 for all other descenders)
 #define	MAX_LINES		13		// we can only display this many lines
-#define	LINE_LEN		32		// 32 chars including null terminator; writing 32 uppercase characters will overrun the displa (display will wrap)
+#define	LINE_LEN		48		// 32 chars including null terminator; writing 32 uppercase characters will overrun the display (display will wrap)
 
 
-class SALT_debug_display
+class Systronix_ili9341_helper
 	{
 	private:
 	protected:
@@ -49,5 +49,5 @@ class SALT_debug_display
 		void	screen_clear (void);
 	};
 
-extern	SALT_debug_display display;
+extern	Systronix_ili9341_helper display;
 #endif	// SALT_DEBUG_DISPLAY_H_
