@@ -39,14 +39,15 @@ class Systronix_ili9341_helper
 			text_line	screen_line [MAX_LINES];	// array of text_line structs
 			} screen;
 
-		uint8_t	next_index_get (uint8_t old_index);
-		uint8_t	scroll_display (uint8_t count);
-
+		uint8_t		next_index_get (uint8_t old_index);
+		uint8_t		scroll_display (uint8_t count);
 
 	public:
-		void	display_line_write (const char* text, uint16_t color);
-		void	display_line_rewrite (const char* text, uint16_t color);
-		void	screen_clear (void);
+		uint8_t		setup (void);
+		void		display_line_write (const char* text, uint16_t color);
+		void		display_line_rewrite (const char* text, uint16_t color);
+		void		screen_clear (void);
+		uint8_t		screen_splash (const uint16_t* color_list_ptr);
 	};
 
 extern	Systronix_ili9341_helper display;

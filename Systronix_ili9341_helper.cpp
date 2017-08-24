@@ -18,6 +18,53 @@
 ILI9341_t3 tft = ILI9341_t3 (DISP_CS_PIN, DH_CL_PIN, PERIPH_RST, MOSI_PIN, SCK_PIN, MISO_PIN);
 
 
+//---------------------------< S E T U P >--------------------------------------------------------------------
+//
+//
+//
+
+uint8_t Systronix_ili9341_helper::setup (void)
+	{
+	tft.setSPIclock_read(6600000);		// SPI read clock min cycle time is 150nS (6.666667MHz)
+	tft.setSPIclock_write(10000000);	// SPI write clock min cycle time is 100nS (10MHz)
+	tft.begin();    // SPI lib begin() called from tft.begin() sets up SPI, and drives the PERIPHERAL RESET too
+	tft.setRotation(1);
+	tft.setFont (Arial_12);
+	
+	const uint16_t splash_list[] = {ILI9341_BLUE, ILI9341_GREEN, ILI9341_RED, ILI9341_BLACK};
+	screen_clear();			// clear to black reset line and screen structs
+	
+	return screen_splash (splash_list);
+	}
+
+
+//---------------------------< S C R E E N _ S P L A S H >----------------------------------------------------
+//
+// Used to determine if a debug display is attached and to show a colorful startup (for whatever that is worth)
+// The last color in the color_list[] array shall be ILI9341_BLACK.  Any colors in the array after ILI9341_BLACK
+// shall be ignored
+//
+
+uint8_t Systronix_ili9341_helper::screen_splash (const uint16_t* color_list_ptr)
+	{
+	uint16_t	ret_color;
+	
+	do
+		{
+		tft.fillScreen(*color_list_ptr);
+		ret_color = tft.readPixel(100, 100);
+		if (!(*color_list_ptr == ret_color))
+			{
+			Serial.printf ("fill color: 0x%.4X; read color: 0x%.4X\n", *color_list_ptr, ret_color);
+			return FAIL;
+			}
+
+		} while (*color_list_ptr++ != ILI9341_BLACK);
+
+	return SUCCESS;
+	}
+
+
 //---------------------------< N E X T _ I N D E X _ G E T >--------------------------------------------------
 //
 // Essentially an up-only counter that wraps to zero when an increment would send it beyond the bounds set by
